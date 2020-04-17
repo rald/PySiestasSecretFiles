@@ -5,6 +5,9 @@ import sys
 import json
 import re
 
+import calendar
+import time
+
 contentLength=int(os.environ['CONTENT_LENGTH'])
 content=sys.stdin.read(contentLength)
 
@@ -17,8 +20,10 @@ fin=open("stories/id.txt","r")
 id=int(fin.readline());
 fin.close()
 
+ts=calendar.timegm(time.gmtime())
+
 fout=open("stories/index.txt","a")
-fout.write("%d %s\r\n" % (id,title))
+fout.write("%d %s %s\r\n" % (id,ts,title))
 fout.close()
 
 fout=open("stories/%d.html" % id,"w")
