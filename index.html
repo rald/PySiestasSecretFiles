@@ -41,6 +41,15 @@
 
 <script>
 
+function shuffle(arr) {
+	for(var i=arr.length-1;i>0;i--) {
+		var j=Math.floor(Math.random()*(i+1));
+		var tmp=arr[i];
+		arr[i]=arr[j];
+		arr[j]=tmp;
+	}
+}
+
 function read(str) {
 
 	var jsonStr=JSON.stringify({"search":str});
@@ -50,6 +59,7 @@ function read(str) {
 		if (this.readyState == 4 && this.status == 200) {
 			var obj = JSON.parse(this.responseText);
   		if(obj.status == "OK") {
+  			shuffle(obj.titles);
         html="";
 				for(var i=0;i<obj.titles.length;i++) {
           html+="<div class='story-title'><a href='stories/"+obj.titles[i].id+".html' target='_blank'>"+obj.titles[i].title+"</a></div>";
