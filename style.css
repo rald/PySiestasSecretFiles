@@ -1,0 +1,67 @@
+* {
+	font-family: "courier new", courier, monospace;
+}
+
+#header {
+	text-align: center;
+}
+
+.nav {
+	margin: 24px;
+	text-align: center;
+	font-size: 3rem;
+}
+
+.nav a {
+	text-decoration: none;
+}
+
+.nav .active {
+	text-decoration: underline;
+}
+
+.story-title {
+	display: inline-block;
+	margin: 16px;
+}
+
+.story-title a {
+	text-decoration: none;
+	font-size: 3rem;
+}
+
+#input-title {
+	font-size: 3rem;
+}
+
+#input-story {
+	font-size: 3rem;
+	height: 240px;
+}
+
+#input-search {
+	font-size: 3rem;
+}
+
+#button-search {
+	font-size: 3rem;
+}
+
+#button-submit {
+	font-size: 3rem;
+}
+
+#button-preview {
+	font-size: 3rem;
+}
+
+#button-reset {
+	font-size: 3rem;
+}
+
+#title {
+}
+
+#story {
+}
+

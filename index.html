@@ -1,0 +1,81 @@
+<html>
+
+	<head>
+		
+		<title>Siesta's Secret Files - Read</title>
+
+		<link rel="stylesheet" href="Skeleton-2.0.4/css/skeleton.css" />
+
+		<link rel="stylesheet" href="style.css" />
+
+	</head>
+
+	<body>
+
+		<div class="header"><h1 align="center">Siesta's Secret Files</h1></div>
+
+		<div class="nav">
+				<a href="index.html" class="active">Read Story</a> -
+				<a href="write.html" >Write Story</a> -
+				<a href="about.html">About</a>
+		</div>
+
+		<div class="container">
+
+			<form action="javascript:find()">
+				<div class="row">
+				<div class="nine columns">
+					<input id="input-search" class="u-full-width" type="text" placeholder="Search here...">
+				</div>
+				<div class="three columns">
+					<input id="button-search" class="button-primary u-full-width" type="submit" value="Search">
+				</div>
+			</form>
+
+			<center>
+				<div id="stories">
+				</div>
+			</center>
+
+		</div>
+
+<script>
+
+function read(str) {
+
+	var jsonStr=JSON.stringify({"search":str});
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var obj = JSON.parse(this.responseText);
+  		if(obj.status == "OK") {
+        html="";
+				for(var i=0;i<obj.titles.length;i++) {
+          html+="<div class='story-title'><a href='stories/"+obj.titles[i].id+".html' target='_blank'>"+obj.titles[i].title+"</a></div>";
+				}				
+        document.getElementById("stories").innerHTML=html;
+			}	else {
+				alert("Error reading story index!");
+			}	
+    }
+	};
+
+	xhttp.open("POST", "cgi-bin/read.py", false);
+	xhttp.setRequestHeader("content-type", "application/json");
+
+	xhttp.send(jsonStr);
+}
+
+function find() {
+	var str=document.getElementById("input-search");
+	read(str.value);
+}
+
+read("");
+
+</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,75 @@
+<html>
+
+	<head>
+
+		<title>Siesta's Secret Files - Write</title>
+
+		<link rel="stylesheet" href="Skeleton-2.0.4/css/skeleton.css" />
+
+		<link rel="stylesheet" href="style.css" />
+
+	</head>
+
+	<body>
+
+		<div id="header"><h1>Siesta's Secret Files</h1></div>
+
+		<div class="nav">
+				<a href="index.html">Read Story</a> -
+				<a href="write.html" class="active">Write Story</a> -
+				<a href="about.html">About</a>
+		</div>
+
+		<div class="container">
+
+			<div id="content">
+				<form id="main-form" action="javascript:write()">
+				  <input id="input-title" name="title" class="u-full-width" type="text" placeholder="Story title here..." id="title" required>
+				  <textarea id="input-story" name="story" class="u-full-width" placeholder="Your story here..." id="story" required></textarea>
+				  <input id="button-submit" class="button-primary" type="submit" value="Submit">
+				  <input id="button-preview" class="button" type="button" value="Preview" onclick="javascript:preview()">
+				  <input id="button-reset" class="button" type="reset" value="Reset">
+					<div class="u-cf"></div>
+				</form>
+			</div>
+
+		</div>
+
+<script>
+
+function write() {
+
+	var title=document.getElementById("input-title");
+	var story=document.getElementById("input-story");
+	var jsonStr=JSON.stringify({"title":title.value,"story":story.value});
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var obj = JSON.parse(this.responseText);
+			if(obj.status == "OK") {
+				alert("Story written.");
+				window.location.href="index.html";
+			}	else {
+				alert("Error writing story!");
+			}	
+		}
+	};
+
+	xhttp.open("POST", "cgi-bin/write.py", false);
+	xhttp.setRequestHeader("content-type", "application/json");
+
+	xhttp.send(jsonStr);
+}
+
+function preview() {
+	var story=document.getElementById("input-story");
+	var win=window.open("","_blank");
+	win.document.body.innerHTML=story.value;
+}
+
+</script>
+
+	</body>
+
+</html>
