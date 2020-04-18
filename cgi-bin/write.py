@@ -23,10 +23,10 @@ fin.close()
 ts=calendar.timegm(time.gmtime())
 
 fout=open("stories/index.txt","a")
-fout.write("%d %s %s\r\n" % (id,ts,title))
+fout.write("%08x %s %s\r\n" % (id,ts,title))
 fout.close()
 
-fout=open("stories/%d.html" % id,"w")
+fout=open("stories/%08x.html" % id,"w")
 fout.write(story)
 fout.close()
 
