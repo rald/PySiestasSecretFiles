@@ -56,7 +56,7 @@ function write() {
 		}
 	};
 
-	xhttp.open("POST", "cgi-bin/write.py", false);
+	xhttp.open("POST", "cgi-bin/write.py", true);
 	xhttp.setRequestHeader("content-type", "application/json");
 
 	xhttp.send(jsonStr);

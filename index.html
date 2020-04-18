@@ -25,7 +25,7 @@
 			<form action="javascript:find()">
 				<div class="row">
 				<div class="nine columns">
-					<input id="input-search" class="u-full-width" type="text" placeholder="Search here...">
+					<input id="input-search" class="u-full-width" type="text" placeholder="Search for story title here...">
 				</div>
 				<div class="three columns">
 					<input id="button-search" class="button-primary u-full-width" type="submit" value="Search">
@@ -52,6 +52,7 @@ function shuffle(arr) {
 
 function read(str) {
 
+	var stories=document.getElementById("stories");
 	var jsonStr=JSON.stringify({"search":str});
 	var xhttp = new XMLHttpRequest();
 
@@ -64,16 +65,17 @@ function read(str) {
 				for(var i=0;i<obj.titles.length;i++) {
           html+="<div class='story-title'><a href='stories/"+obj.titles[i].id+".html' target='_blank'>"+obj.titles[i].title+"</a></div>";
 				}				
-        document.getElementById("stories").innerHTML=html;
+        stories.innerHTML=html;
 			}	else {
 				alert("Error reading story index!");
 			}	
     }
 	};
 
-	xhttp.open("POST", "cgi-bin/read.py", false);
-	xhttp.setRequestHeader("content-type", "application/json");
+	stories.innerHTML="<img src='images/loading.gif' alt='loading'/>";
 
+	xhttp.open("POST", "cgi-bin/read.py", true);
+	xhttp.setRequestHeader("content-type", "application/json");
 	xhttp.send(jsonStr);
 }
 
